@@ -1,15 +1,13 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import java.util.List;
-import lotto.Lotto;
+import lotto.game.Lotto;
 import lotto.util.InputValidator;
 import lotto.util.LottoMessage;
 import lotto.util.Parser;
 
 public class InputView {
     public static int readUserMoney() {
-        System.out.print(LottoMessage.GAME_START_MESSAGE);
         String userInput = Console.readLine();
 
         InputValidator.validateMoneyInput(userInput);
@@ -24,5 +22,14 @@ public class InputView {
         InputValidator.validateLottoInput(userInput);
 
         return new Lotto(Parser.parseInputToList(userInput));
+    }
+
+    public static int readBonusNumber() {
+        System.out.print(LottoMessage.BONUS_NUMBER_INPUT_MESSAGE);
+        String userInput = Console.readLine();
+
+        InputValidator.isNumeric(userInput);
+
+        return Parser.convertToInteger(userInput);
     }
 }
