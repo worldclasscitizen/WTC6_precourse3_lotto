@@ -8,9 +8,17 @@ import lotto.util.Parser;
 
 public class InputView {
     public static int readUserMoney() {
-        String userInput = Console.readLine();
+        String userInput = "";
+        boolean isValid = false;
 
-        InputValidator.validateMoneyInput(userInput);
+        while (!isValid) {
+            userInput = Console.readLine();
+            isValid = InputValidator.validateMoneyInput(userInput);
+
+            if (!isValid) {
+                System.out.println("[ERROR] 올바른 값을 입력해 주세요.");
+            }
+        }
 
         return Integer.parseInt(userInput);
     }
