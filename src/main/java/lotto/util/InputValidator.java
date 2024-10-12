@@ -1,9 +1,11 @@
 package lotto.util;
 
 public class InputValidator {
-    public static void validateMoneyInput(String userInput) {
-        isNumeric(userInput);
-        validateDivisibleByThousand(userInput);
+    public static boolean validateMoneyInput(String userInput) {
+        if (isNumeric(userInput)) {
+            return validateDivisibleByThousand(userInput);
+        }
+        return false;
     }
 
     public static void validateLottoInput(String userInput) {
@@ -11,15 +13,16 @@ public class InputValidator {
         for (String value : values) {
             isNumeric(value.trim());
             isInRange(value.trim());
-            // TODO : 중복은 아닌지
         }
     }
 
-    public static void isNumeric(String str) {
+    public static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
+            return true;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.NUMBER_FORMAT_ERROR_MESSAGE);
+            System.out.println(ErrorMessage.NUMBER_FORMAT_ERROR_MESSAGE);
+            return false;
         }
     }
 
@@ -30,21 +33,19 @@ public class InputValidator {
         }
     }
 
-    private static void validateDivisibleByThousand(String str) {
+    public static boolean validateDivisibleByThousand(String str) {
         int number = Integer.parseInt(str);
-        if(number % 1000 != 0) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_UNIT);
+        if (number % 1000 != 0) {
+            System.out.println(ErrorMessage.INVALID_UNIT);
+            return false;
         }
+        return true;
     }
 
     private static void isInRange(String str) {
         int number = Integer.parseInt(str);
-        if(number < 1 || number > 45) {
+        if (number < 1 || number > 45) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_RANGE);
         }
-    }
-
-    private static void isNotDuplicate(String str) {
-        // TODO
     }
 }
