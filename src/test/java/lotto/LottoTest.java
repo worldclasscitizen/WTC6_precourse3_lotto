@@ -1,5 +1,6 @@
 package lotto;
 
+import lotto.game.Constants;
 import lotto.game.Lotto;
 import lotto.util.InputValidator;
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +37,14 @@ class LottoTest {
     @Test
     void validateLottoInputWithNumberOutOfRange() {
         String userInput = "1, 2, 3, 4, 5, 46";
+        assertThatThrownBy(() -> InputValidator.validateLottoInput(userInput))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("로또 보너스 번호에 1~45 이외의 숫자가 있으면 예외가 발생한다.")
+    @Test
+    void validateBonusNumberInputWithNumberOutOfRange() {
+        String userInput = "46";
         assertThatThrownBy(() -> InputValidator.validateLottoInput(userInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
